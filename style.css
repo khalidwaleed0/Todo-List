@@ -39,7 +39,7 @@ header {
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
-    padding: 36px;
+    padding: 24px;
     background-color: #EEEEEE;
 }
 
@@ -84,12 +84,16 @@ header {
 #projects-container {
 	display: flex;
 	flex-direction: column;
+    height: 100px;
+    overflow-y: auto;
 	gap: 12px;
+    direction:rtl;
 }
 
 #projects-container .project {
 	padding-left: 16px;
 	font-size: 24px;
+    direction:ltr;
 }
 
 #btn-add {
@@ -109,5 +113,28 @@ header {
 }
 
 #btn-add:hover {
-    filter: brightness(95%);
+    filter: brightness(90%);
 }
+
+
+/* Scrollbar style */
+  ::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: lightgray;
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--pink-color);
+    border-radius: 8px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--pink-color);
+  }
+  ::-webkit-scrollbar-corner {
+    border-radius: 8px;
+  }
+  /* Scrollbar style */
