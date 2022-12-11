@@ -34,7 +34,7 @@ header {
 	font-size: 36px;
 	font-weight: bold;
 }
-
+/* Sidebar */
 .side-bar {
 	display: flex;
 	flex-direction: column;
@@ -116,6 +116,59 @@ header {
     filter: brightness(90%);
 }
 
+/* Sidebar */
+
+/* main-content */
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+.task-card {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    gap: 12px;
+    background-color: #EEEEEE;
+    font-size: 22px;
+}
+
+button.task-details {
+    border: 1px solid #04c54e;
+    border-radius: 3px;
+    color: #04c54e;
+    padding: 6px 12px;
+    background-color: transparent;
+    margin-left: auto;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button.task-details:hover {
+    color: white;
+    background-color: #04c54e;
+}
+
+svg,input {
+    width: 22px;
+    height: 22px;
+}
+
+input {
+    accent-color: rgb(9, 235, 9);
+    cursor: pointer;
+}
+
+svg:hover {
+    fill: lightgreen;
+    cursor: pointer;
+}
+
+/* main-content */
 
 /* Scrollbar style */
   ::-webkit-scrollbar {
