@@ -68,7 +68,7 @@ header {
 }
 
 .side-bar * span:first-child:hover{
-    scale: 1.2;
+    scale: 1.1;
 }
 
 .side-bar * span:first-child:hover:before{
