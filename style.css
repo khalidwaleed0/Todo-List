@@ -1,3 +1,7 @@
+:root {
+	--pink-color: #c38d9e;
+}
+
 * {
 	padding: 0;
 	margin: 0;
@@ -5,22 +9,105 @@
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	height: 100vh;
+	background-color: azure;
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    grid-template-rows: auto 1fr;
-    border: 2px solid;
-    width: 75%;
-    height: 75%;
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+	grid-template-rows: auto 1fr;
+	border: 2px solid;
+	width: 75%;
+	height: 75%;
 }
 
 header {
-    grid-column: 1/-1;
+	grid-column: 1/-1;
+	padding: 12px;
+	background-color: var(--pink-color);
+	color: white;
+	font-size: 36px;
+	font-weight: bold;
+}
+
+.side-bar {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+    padding: 36px;
+    background-color: #EEEEEE;
+}
+
+.side-bar > div, .side-bar section div{
+    display: flex;
+    align-items: center;
+}
+
+.side-bar * span:first-child {
+    flex: 1;
+    cursor: pointer;
+}
+
+.counter {
+    display: flex;
+    margin-left: auto;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #c38d9e;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+}
+
+.side-bar * span:first-child:hover{
+    scale: 1.2;
+}
+
+.side-bar * span:first-child:hover:before{
+    content: "> ";
+    color: #c38d9e;
+    font-weight: bold;
+}
+
+.side-bar div, h3 {
+    font-size: 28px;
+}
+
+#projects-container {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+#projects-container .project {
+	padding-left: 16px;
+	font-size: 24px;
+}
+
+#btn-add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    border-radius: 50%;
+    border: none;
+    width: 65px;
+    height: 65px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    background-color: var(--pink-color);
+    font-size: 72px;
+    color: white;
+    cursor: pointer;
+}
+
+#btn-add:hover {
+    filter: brightness(95%);
 }
