@@ -120,7 +120,7 @@ header {
     border: none;
     width: 65px;
     height: 65px;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.5);
     background-color: var(--pink-color);
     font-size: 72px;
     color: white;
@@ -129,6 +129,12 @@ header {
 
 #btn-add:hover {
     filter: brightness(90%);
+}
+
+#btn-add:active {
+    scale: 0.95;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    
 }
 /* Sidebar */
 
