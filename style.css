@@ -84,7 +84,7 @@ header {
 #projects-container {
 	display: flex;
 	flex-direction: column;
-    height: 100px;
+    height: 110px;
     overflow-y: auto;
 	gap: 12px;
     direction:rtl;
