@@ -7,7 +7,9 @@
 	margin: 0;
 	box-sizing: border-box;
 }
-
+html{
+    overflow-x: hidden;
+}
 body {
 	display: flex;
 	flex-direction: column;
@@ -15,9 +17,12 @@ body {
 	align-items: center;
 	min-height: 100vh;
 	background-color: azure;
+    overflow-x: hidden;
+    
 }
 
 .grid {
+    position: relative;
 	display: grid;
 	grid-template-columns: 1fr 3fr;
 	grid-template-rows: auto 1fr;
@@ -53,6 +58,7 @@ header {
 }
 
 svg.menu-icon {
+    display: none;
 	width: 48px;
 	height: 48px;
 	margin-left: auto;
@@ -62,9 +68,34 @@ svg.menu-icon {
 .side-bar {
 	display: flex;
 	flex-direction: column;
+    border-right: 1px solid rgba(0, 0, 0, 0.25);
 	gap: 24px;
 	padding: 24px;
 	background-color: #eeeeee;
+}
+
+.side-bar[active] {
+    display: flex;
+    position: absolute;
+    grid-row: 2/-1;
+    top: 0px;
+    right: 0px;
+    width: 40vw;
+    height: 100%;
+    animation: menu-frame 0.1s ease 0s;
+}
+
+@keyframes menu-frame {
+    from{
+        right: -300px;
+    }
+    to {
+        right: 0px;
+    }
+}
+
+.side-bar[active] #btn-add {
+    align-self: center;
 }
 
 .side-bar > div,
@@ -244,6 +275,10 @@ svg:hover {
 }
 
 @media (max-width: 850px) {
+    svg.menu-icon {
+        display: block;
+    }
+
 	.side-bar {
 		display: none;
 	}
