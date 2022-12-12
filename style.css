@@ -333,8 +333,13 @@ svg:hover {
 	gap: 8px;
 	align-items: center;
 }
-
 /* Scrollbar style */
+
+@media (max-width: 500px) {
+    .form-container form {
+        width: 90%;
+    }
+}
 
 @media (max-width: 750px) {
 	h1 {
