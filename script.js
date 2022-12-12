@@ -1,3 +1,2 @@
-document.querySelector("svg.menu-icon").onclick = () => {
-	document.querySelector(".side-bar").toggleAttribute("active");
-};
+import { addListeners } from '/scripts/dom-manipulator.js';
+addListeners();
