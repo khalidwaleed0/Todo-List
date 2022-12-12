@@ -10,8 +10,76 @@ const noteFormContent = `<input class="title" type="text" placeholder="Note Titl
 const projectFormContent = `<input class="title" type="text" placeholder="Project Title:" maxlength="36" />
                             <button type="button">Add</button>`;
 
-const sidebarButtons = document.querySelectorAll(".side-bar * span:first-child");
-const formNavButtons = document.querySelectorAll(".form-container .side-bar div span");
+const mainSidebarButtons = document.querySelectorAll(".side-bar * span:first-child");
+const formSidebarButtons = document.querySelectorAll(".form-container .side-bar div span");
+
+export function addListeners() {
+	addIconListeners();
+	addMainSidebarListeners();
+	addNewFormListeners();
+	addNewFormSidebarListeners();
+	addEditFormListeners();
+}
+
+function addIconListeners() {
+	document.querySelector("svg.menu-icon").onclick = () => {
+		document.querySelector(".side-bar").toggleAttribute("active");
+	};
+	document.getElementById("btn-add").onclick = () => {
+		document.querySelector(".new-form-container").toggleAttribute("active");
+		showTodoForm();
+	};
+	document.querySelectorAll("svg.edit-icon").forEach((item) => {
+		item.onclick = () => {
+			document.querySelector(".edit-form-container").toggleAttribute("active");
+		};
+	});
+}
+
+function addMainSidebarListeners() {
+	mainSidebarButtons.forEach((item) => {
+		item.addEventListener("click", (e) => {
+			mainSidebarButtons.forEach((e1) => {
+				e1.removeAttribute("active");
+			});
+			e.target.setAttribute("active", "");
+		});
+	});
+}
+
+function addNewFormListeners() {
+	document.querySelector(".new-form-container .btn-close").onclick = () => {
+		document.querySelector(".new-form-container form").setAttribute("closed", "");
+		setTimeout(() => {
+			document.querySelector(".new-form-container").toggleAttribute("active");
+			document.querySelector(".new-form-container form").removeAttribute("closed");
+		}, 400);
+	};
+	document.querySelector(".form-container .todo").onclick = showTodoForm;
+	document.querySelector(".form-container .project").onclick = showProjectForm;
+	document.querySelector(".form-container .note").onclick = showNoteForm;
+}
+
+function addNewFormSidebarListeners() {
+	formSidebarButtons.forEach((item) => {
+		item.addEventListener("click", (e) => {
+			formSidebarButtons.forEach((e1) => {
+				e1.removeAttribute("active");
+			});
+			e.target.setAttribute("active", "");
+		});
+	});
+}
+
+function addEditFormListeners() {
+	document.querySelector(".edit-form-container .btn-close").onclick = () => {
+		document.querySelector(".edit-form-container form").setAttribute("closed", "");
+		setTimeout(() => {
+			document.querySelector(".edit-form-container").toggleAttribute("active");
+			document.querySelector(".edit-form-container form").removeAttribute("closed");
+		}, 400);
+	};
+}
 
 function showTodoForm() {
 	document.querySelector("form .content").innerHTML = todoFormContent;
@@ -23,41 +91,4 @@ function showProjectForm() {
 
 function showNoteForm() {
 	document.querySelector("form .content").innerHTML = noteFormContent;
-}
-
-export function addListeners() {
-	document.querySelector("svg.menu-icon").onclick = () => {
-		document.querySelector(".side-bar").toggleAttribute("active");
-	};
-
-	document.getElementById("btn-add").onclick = () => {
-		document.querySelector(".form-container").toggleAttribute("active");
-		showTodoForm();
-	};
-
-	document.querySelector(".btn-close").onclick = () => {
-		document.querySelector(".form-container").toggleAttribute("active");
-	};
-
-	document.querySelector(".form-container .todo").onclick = showTodoForm;
-	document.querySelector(".form-container .project").onclick = showProjectForm;
-	document.querySelector(".form-container .note").onclick = showNoteForm;
-
-	formNavButtons.forEach((item) => {
-		item.addEventListener("click", (e) => {
-			formNavButtons.forEach((e1) => {
-				e1.removeAttribute("active");
-			});
-			e.target.setAttribute("active", "");
-		});
-	});
-
-	sidebarButtons.forEach((item) => {
-		item.addEventListener("click", (e) => {
-			sidebarButtons.forEach((e1) => {
-				e1.removeAttribute("active");
-			});
-			e.target.setAttribute("active", "");
-		});
-	});
 }
