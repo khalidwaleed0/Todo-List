@@ -113,12 +113,13 @@ svg.menu-icon {
 	text-align: center;
 }
 
-.side-bar * span:first-child:hover span[active] {
+main .side-bar * span:first-child:hover,
+main span[active] {
 	scale: 1.1;
 }
 
-.side-bar * span:first-child:hover:before,
-span[active]:before {
+main .side-bar * span:first-child:hover:before,
+main span[active]:before {
 	content: "> ";
 	color: #c38d9e;
 	font-weight: bold;
@@ -241,6 +242,7 @@ svg:hover {
 	backdrop-filter: blur(3px);
 	background-color: rgba(0, 0, 0, 0.363);
 }
+
 .form-container form {
 	box-shadow: 0 24px 46px rgba(0, 0, 0, 0.493);
 	border-radius: 4px;
@@ -273,6 +275,7 @@ svg:hover {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
+	width: 100%;
 	padding: 24px;
 	gap: 16px;
 	background-color: #f7f7f7;
@@ -348,7 +351,7 @@ svg:hover {
 		display: block;
 	}
 
-	.side-bar {
+	main .side-bar {
 		display: none;
 	}
 	.main-content {
