@@ -82,16 +82,7 @@ svg.menu-icon {
     right: 0px;
     width: 40vw;
     height: 100%;
-    animation: menu-frame 0.1s ease 0s;
-}
-
-@keyframes menu-frame {
-    from{
-        right: -300px;
-    }
-    to {
-        right: 0px;
-    }
+    animation: menu-key-frame 0.1s ease 0s;
 }
 
 .side-bar[active] #btn-add {
@@ -199,20 +190,23 @@ h3 {
 	font-size: 22px;
 }
 
-button.task-details {
-	border: 1px solid #04c54e;
+button {
+    border: 1px solid #04c54e;
 	border-radius: 3px;
 	color: #04c54e;
 	padding: 6px 12px;
 	background-color: transparent;
-	margin-left: auto;
 	cursor: pointer;
 	font-size: 16px;
 }
 
-button.task-details:hover {
+button:hover {
 	color: white;
 	background-color: #04c54e;
+}
+
+button.task-details {
+	margin-left: auto;
 }
 
 svg,
@@ -231,6 +225,73 @@ svg:hover {
 	cursor: pointer;
 }
 /* main-content */
+
+/* form-container */
+.form-container {
+    display: none;
+}
+.form-container[active] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(3px);
+    background-color: rgba(0, 0, 0, 0.363);
+}
+
+.form-container form {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: auto 1fr;
+    box-shadow: 0 24px 46px rgba(0, 0, 0, 0.493);
+    border-radius: 4px;
+    width: 60%;
+    height: 60%;
+    animation: form-key-frame 0.1 ease-in-out 0s;
+}
+
+.form-container header {
+    display: flex;
+}
+
+.btn-close {
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.form-container .content {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    gap: 16px;
+    background-color: #F7F7F7;
+}
+
+.content input.title,.content textarea.details {
+    width: 100%;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.content input.date {
+    width: 110px;
+}
+
+.form-container .content textarea.details {
+    flex: 1;
+    resize: none;
+}
+
+.form-container button {
+    margin-top: auto;
+}
+
+/* form-container */
 
 /* Scrollbar style */
 ::-webkit-scrollbar {
@@ -290,5 +351,23 @@ svg:hover {
 @media (orientation: portrait) {
 	.grid {
         height: 100vh;
+    }
+}
+
+@keyframes menu-key-frame {
+    from{
+        right: -300px;
+    }
+    to {
+        right: 0px;
+    }
+}
+
+@keyframes form-key-frame {
+    from{
+        scale: 0;
+    }
+    to {
+        scale: 1;
     }
 }
