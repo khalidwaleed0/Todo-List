@@ -114,11 +114,11 @@ svg.menu-icon {
 	text-align: center;
 }
 
-.side-bar * span:first-child:hover {
+.side-bar * span:first-child:hover span[active]{
 	scale: 1.1;
 }
 
-.side-bar * span:first-child:hover:before {
+.side-bar * span:first-child:hover:before, span[active]:before{
 	content: "> ";
 	color: #c38d9e;
 	font-weight: bold;
