@@ -65,6 +65,18 @@ function addMainSidebarListeners() {
 			e.target.setAttribute("active", "");
 		});
 	});
+	addProjectsListeners();
+}
+
+function addProjectsListeners() {
+	document.querySelectorAll(".project span:first-child").forEach((item) => {
+		item.onclick = () => {
+			let projectTasks = tasks.filter((task) => task["project"] === item.textContent);
+			document.querySelector(".main-content").innerHTML = "";
+			addTasks(projectTasks);
+			addIconListeners();
+		};
+	});
 }
 
 function addNewFormListeners() {
