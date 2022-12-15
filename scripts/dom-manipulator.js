@@ -73,7 +73,7 @@ function addMainSidebarListeners() {
 }
 
 function addProjectsListeners() {
-	document.querySelectorAll(".project span:first-child").forEach((item) => {
+	document.querySelectorAll("#projects-container .project span:first-child").forEach((item) => {
 		item.onclick = () => {
 			let projectTasks = tasks.filter((task) => task["project"] === item.textContent);
 			document.querySelector(".main-content").innerHTML = "";
