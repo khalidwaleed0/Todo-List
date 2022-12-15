@@ -41,6 +41,7 @@ export function addListeners() {
 	addNewFormListeners();
 	addNewFormSidebarListeners();
 	addEditFormListeners();
+	addFormCloseListeners();
 }
 
 function addIconListeners() {
@@ -105,14 +106,21 @@ function addProjectsListeners() {
 	});
 }
 
+function addFormCloseListeners() {
+	document.querySelectorAll(".form-container .btn-close").forEach((btn) => btn.onclick = closeForm);
+}
+
+function closeForm(e) {
+	let form = e.target.parentElement.parentElement;
+	let formContainer = form.parentElement;
+	form.setAttribute("closed", "");
+	setTimeout(() => {
+		formContainer.toggleAttribute("active");
+		form.removeAttribute("closed");
+	}, 400);
+}
+
 function addNewFormListeners() {
-	document.querySelector(".new-form-container .btn-close").onclick = () => {
-		document.querySelector(".new-form-container form").setAttribute("closed", "");
-		setTimeout(() => {
-			document.querySelector(".new-form-container").toggleAttribute("active");
-			document.querySelector(".new-form-container form").removeAttribute("closed");
-		}, 400);
-	};
 	document.querySelector(".new-form-container .todo").onclick = showTodoForm;
 	document.querySelector(".new-form-container .project").onclick = showProjectForm;
 	document.querySelector(".new-form-container .note").onclick = showNoteForm;
@@ -129,16 +137,7 @@ function addNewFormSidebarListeners() {
 	});
 }
 
-function closeEditForm() {
-	document.querySelector(".edit-form-container form").setAttribute("closed", "");
-	setTimeout(() => {
-		document.querySelector(".edit-form-container").toggleAttribute("active");
-		document.querySelector(".edit-form-container form").removeAttribute("closed");
-	}, 400);
-}
-
 function addEditFormListeners() {
-	document.querySelector(".edit-form-container .btn-close").onclick = closeEditForm;
 	document.querySelector(".edit-form-container button").onclick = (e) => {
 		let title = document.querySelector(".edit-form-container input.title").value;
 		let details = document.querySelector(".edit-form-container textarea.details").value;
@@ -150,7 +149,7 @@ function addEditFormListeners() {
 		tasks[selectedTaskIndex].date = date;
 		localStorage.setItem("tasks", JSON.stringify(tasks));
 		document.querySelector(".edit-form-container form").reset();
-		closeEditForm();
+		closeForm();
 	};
 }
 
