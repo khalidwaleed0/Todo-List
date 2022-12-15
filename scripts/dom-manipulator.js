@@ -15,8 +15,6 @@ const formSidebarButtons = document.querySelectorAll(".form-container .side-bar 
 let projects = JSON.parse(localStorage.getItem("projects")) ?? [];
 let notes = JSON.parse(localStorage.getItem("notes")) ?? [];
 let tasks = JSON.parse(localStorage.getItem("tasks")) ?? [];
-let selectedTaskIndex = 0;
-let selectedCard;
 
 class Note {
 	constructor(title, details) {
@@ -54,32 +52,35 @@ function addIconListeners() {
 	};
 }
 
-function showDetails(e) {
-	selectedCard = e.target.parentElement.parentElement;
+function getSelectedCardIndex(e) {
+	let selectedCard = e.target.parentElement.parentElement;
 	let taskName = selectedCard.querySelector(".task-name").textContent;
 	for (let i = 0; i < tasks.length; i++) {
-		if (tasks[i].title === taskName) {
-			selectedTaskIndex = i;
-			break;
-		}
+		if (tasks[i].title === taskName) return i;
 	}
-	document.querySelector(".form-container").toggleAttribute("active");
-	document.querySelector(".form-container[active] input.title").value = tasks[selectedTaskIndex].title;
-	document.querySelector(".form-container[active] textarea.details").value = tasks[selectedTaskIndex].details;
-	document.querySelector(".form-container[active] input.date").value = tasks[selectedTaskIndex].date;
+}
+
+function showDetails(e) {
+	let index = getSelectedCardIndex(e);
+	document.querySelector(".form-container[active] input.title").value = tasks[index].title;
+	document.querySelector(".form-container[active] textarea.details").value = tasks[index].details;
+	document.querySelector(".form-container[active] input.date").value = tasks[index].date;
 }
 
 function addCardsListeners() {
+	document.querySelectorAll("input.checkbox").forEach((item) => {
+		item.onclick = () => {};
+	});
 	document.querySelectorAll("button.task-details").forEach((item) => {
-		item.onclick = () => {
+		item.onclick = (e) => {
 			document.querySelector(".details-form-container").toggleAttribute("active");
-			showDetails();
+			showDetails(e);
 		};
 	});
 	document.querySelectorAll("svg.edit-icon").forEach((item) => {
-		item.onclick = () => {
+		item.onclick = (e) => {
 			document.querySelector(".edit-form-container").toggleAttribute("active");
-			showDetails();
+			showDetails(e);
 		};
 	});
 	document.querySelectorAll(".remove-icon").forEach((item) => {
