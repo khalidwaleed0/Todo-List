@@ -54,21 +54,32 @@ function addIconListeners() {
 	};
 }
 
+function showDetails(e) {
+	selectedCard = e.target.parentElement.parentElement;
+	let taskName = selectedCard.querySelector(".task-name").textContent;
+	for (let i = 0; i < tasks.length; i++) {
+		if (tasks[i].title === taskName) {
+			selectedTaskIndex = i;
+			break;
+		}
+	}
+	document.querySelector(".form-container").toggleAttribute("active");
+	document.querySelector(".form-container[active] input.title").value = tasks[selectedTaskIndex].title;
+	document.querySelector(".form-container[active] textarea.details").value = tasks[selectedTaskIndex].details;
+	document.querySelector(".form-container[active] input.date").value = tasks[selectedTaskIndex].date;
+}
+
 function addCardsListeners() {
+	document.querySelectorAll("button.task-details").forEach((item) => {
+		item.onclick = () => {
+			document.querySelector(".details-form-container").toggleAttribute("active");
+			showDetails();
+		};
+	});
 	document.querySelectorAll("svg.edit-icon").forEach((item) => {
-		item.onclick = (e) => {
-			selectedCard = e.target.parentElement.parentElement;
-			let taskName = item.parentElement.parentElement.querySelector(".task-name").textContent;
-			for (let i = 0; i < tasks.length; i++) {
-				if (tasks[i].title === taskName) {
-					selectedTaskIndex = i;
-					break;
-				}
-			}
+		item.onclick = () => {
 			document.querySelector(".edit-form-container").toggleAttribute("active");
-			document.querySelector(".edit-form-container input.title").value = tasks[selectedTaskIndex].title;
-			document.querySelector(".edit-form-container textarea.details").value = tasks[selectedTaskIndex].details;
-			document.querySelector(".edit-form-container input.date").value = tasks[selectedTaskIndex].date;
+			showDetails();
 		};
 	});
 	document.querySelectorAll(".remove-icon").forEach((item) => {
@@ -107,7 +118,7 @@ function addProjectsListeners() {
 }
 
 function addFormCloseListeners() {
-	document.querySelectorAll(".form-container .btn-close").forEach((btn) => btn.onclick = closeForm);
+	document.querySelectorAll(".form-container .btn-close").forEach((btn) => (btn.onclick = closeForm));
 }
 
 function closeForm(e) {
