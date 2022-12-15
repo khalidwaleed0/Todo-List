@@ -34,6 +34,7 @@ class Task {
 
 export function addListeners() {
 	addIconListeners();
+	addCardsListeners();
 	addMainSidebarListeners();
 	addNewFormListeners();
 	addNewFormSidebarListeners();
@@ -48,6 +49,9 @@ function addIconListeners() {
 		document.querySelector(".new-form-container").toggleAttribute("active");
 		showTodoForm();
 	};
+}
+
+function addCardsListeners() {
 	document.querySelectorAll("svg.edit-icon").forEach((item) => {
 		item.onclick = () => {
 			document.querySelector(".edit-form-container").toggleAttribute("active");
@@ -74,7 +78,7 @@ function addProjectsListeners() {
 			let projectTasks = tasks.filter((task) => task["project"] === item.textContent);
 			document.querySelector(".main-content").innerHTML = "";
 			addTasks(projectTasks);
-			addIconListeners();
+			addCardsListeners();
 		};
 	});
 }
