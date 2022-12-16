@@ -55,25 +55,6 @@ function addIconListeners() {
 	};
 }
 
-function setCardAndTaskIndex(e) {
-	selectedCard = e.target.parentElement;
-	if (selectedCard.className !== "task-card") selectedCard = selectedCard.parentElement;
-	let taskName = selectedCard.querySelector(".task-name").textContent;
-	for (let i = 0; i < tasks.length; i++) {
-		if (tasks[i].title === taskName) {
-			selectedTaskIndex = i;
-			break;
-		}
-	}
-}
-
-function showDetails(e) {
-	setCardAndTaskIndex(e);
-	document.querySelector(".form-container[active] input.title").value = tasks[selectedTaskIndex].title;
-	document.querySelector(".form-container[active] textarea.details").value = tasks[selectedTaskIndex].details;
-	document.querySelector(".form-container[active] input.date").value = tasks[selectedTaskIndex].date;
-}
-
 function addCardsListeners() {
 	document.querySelectorAll("input.checkbox").forEach((item) => {
 		item.onchange = (e) => {
@@ -117,31 +98,6 @@ function addMainSidebarListeners() {
 	addProjectsListeners();
 }
 
-function addProjectsListeners() {
-	document.querySelectorAll("#projects-container .project span:first-child").forEach((item) => {
-		item.onclick = () => {
-			let projectTasks = tasks.filter((task) => task.project === item.textContent);
-			document.querySelector(".main-content").innerHTML = "";
-			addTasks(projectTasks);
-			addCardsListeners();
-		};
-	});
-}
-
-function addFormCloseListeners() {
-	document.querySelectorAll(".form-container .btn-close").forEach((btn) => (btn.onclick = closeForm));
-}
-
-function closeForm(e) {
-	let form = e.target.parentElement.parentElement;
-	let formContainer = form.parentElement;
-	form.setAttribute("closed", "");
-	setTimeout(() => {
-		formContainer.toggleAttribute("active");
-		form.removeAttribute("closed");
-	}, 400);
-}
-
 function addNewFormListeners() {
 	document.querySelector(".new-form-container .todo").onclick = showTodoForm;
 	document.querySelector(".new-form-container .project").onclick = showProjectForm;
@@ -173,6 +129,50 @@ function addEditFormListeners() {
 		document.querySelector(".edit-form-container form").reset();
 		closeForm();
 	};
+}
+
+function addFormCloseListeners() {
+	document.querySelectorAll(".form-container .btn-close").forEach((btn) => (btn.onclick = closeForm));
+}
+
+function setCardAndTaskIndex(e) {
+	selectedCard = e.target.parentElement;
+	if (selectedCard.className !== "task-card") selectedCard = selectedCard.parentElement;
+	let taskName = selectedCard.querySelector(".task-name").textContent;
+	for (let i = 0; i < tasks.length; i++) {
+		if (tasks[i].title === taskName) {
+			selectedTaskIndex = i;
+			break;
+		}
+	}
+}
+
+function showDetails(e) {
+	setCardAndTaskIndex(e);
+	document.querySelector(".form-container[active] input.title").value = tasks[selectedTaskIndex].title;
+	document.querySelector(".form-container[active] textarea.details").value = tasks[selectedTaskIndex].details;
+	document.querySelector(".form-container[active] input.date").value = tasks[selectedTaskIndex].date;
+}
+
+function addProjectsListeners() {
+	document.querySelectorAll("#projects-container .project span:first-child").forEach((item) => {
+		item.onclick = () => {
+			let projectTasks = tasks.filter((task) => task.project === item.textContent);
+			document.querySelector(".main-content").innerHTML = "";
+			addTasks(projectTasks);
+			addCardsListeners();
+		};
+	});
+}
+
+function closeForm(e) {
+	let form = e.target.parentElement.parentElement;
+	let formContainer = form.parentElement;
+	form.setAttribute("closed", "");
+	setTimeout(() => {
+		formContainer.toggleAttribute("active");
+		form.removeAttribute("closed");
+	}, 400);
 }
 
 function showTodoForm() {
