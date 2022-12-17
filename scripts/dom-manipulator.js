@@ -74,6 +74,7 @@ function addIconListeners() {
 	};
 	document.getElementById("btn-add").onclick = () => {
 		document.querySelector(".new-form-container").toggleAttribute("active");
+		document.querySelector("main .side-bar").removeAttribute("active");
 		showTodoForm();
 	};
 }
@@ -91,6 +92,7 @@ function addCardsListeners() {
 			document.querySelector(".details-form-container").toggleAttribute("active");
 			let taskIndex = e.target.parentElement.parentElement.getAttribute("task-index");
 			showDetails(taskIndex);
+			document.querySelector("main .side-bar").removeAttribute("active");
 		};
 	});
 	document.querySelectorAll("div.edit-icon-container").forEach((item) => {
@@ -98,6 +100,7 @@ function addCardsListeners() {
 			document.querySelector(".edit-form-container").toggleAttribute("active");
 			let taskIndex = e.target.parentElement.parentElement.getAttribute("task-index");
 			showDetails(taskIndex);
+			document.querySelector("main .side-bar").removeAttribute("active");
 		};
 	});
 	document.querySelectorAll("div.remove-icon-container").forEach((item) => {
@@ -116,6 +119,7 @@ function addMainSidebarListeners() {
 	let mainSidebarButtons = document.querySelectorAll("main .side-bar * span:first-child");
 	mainSidebarButtons.forEach((item) => {
 		item.addEventListener("click", (e) => {
+			document.querySelector("main .side-bar").removeAttribute("active");
 			mainSidebarButtons.forEach((e1) => {
 				e1.removeAttribute("active");
 			});
