@@ -111,6 +111,7 @@ function addCardsListeners() {
 			addTasks(tasks);
 			addCardsListeners();
 			localStorage.setItem("tasks", JSON.stringify(tasks));
+			updateSidebarCounters();
 		};
 	});
 }
@@ -163,6 +164,7 @@ function addNotesListeners() {
 			addNotes(notes);
 			addNotesListeners();
 			localStorage.setItem("notes", JSON.stringify(notes));
+			updateSidebarCounters();
 		};
 		card.querySelector("input.title").onchange = (e) => {
 			let index = e.target.parentElement.getAttribute("note-index");
