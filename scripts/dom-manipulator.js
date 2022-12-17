@@ -69,7 +69,7 @@ export function addListeners() {
 }
 
 function addIconListeners() {
-	document.querySelector("svg.menu-icon").onclick = () => {
+	document.querySelector("div.menu-icon-container").onclick = () => {
 		document.querySelector(".side-bar").toggleAttribute("active");
 	};
 	document.getElementById("btn-add").onclick = () => {
