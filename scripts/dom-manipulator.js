@@ -39,6 +39,7 @@ const noteCardContent = `<input class="title" type="text" placeholder="Todo Titl
 let projects = JSON.parse(localStorage.getItem("projects")) ?? [];
 let notes = JSON.parse(localStorage.getItem("notes")) ?? [];
 let tasks = JSON.parse(localStorage.getItem("tasks")) ?? [];
+updateSidebarCounters();
 
 class Note {
 	constructor(title, details) {
@@ -126,7 +127,7 @@ function addMainSidebarListeners() {
 		document.querySelector(".main-content").innerHTML = "";
 		addTasks(tasks);
 		addCardsListeners();
-	}
+	};
 	document.querySelector("#notes").onclick = () => {
 		document.querySelector(".main-content").innerHTML = notesGrid;
 		addNotes(notes);
@@ -261,6 +262,12 @@ function submitForm(e) {
 	else if (e.target.className.includes("todo")) submitTask(title);
 	document.querySelector(".new-form-container form").reset();
 	closeForm(e);
+	updateSidebarCounters();
+}
+
+function updateSidebarCounters() {
+	document.querySelector("#home .counter").textContent = tasks.length;
+	document.querySelector("#notes .counter").textContent = notes.length;
 }
 
 function submitProject(title) {
