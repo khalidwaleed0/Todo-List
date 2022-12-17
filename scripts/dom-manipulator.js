@@ -31,6 +31,10 @@ const taskCardContent = `<input type="checkbox" class="checkbox" />
 					</svg>
 					</div>
 					</div>`;
+const notesGrid = `<div class="notes-grid"></div>`;
+const noteCardContent = `<input class="title" type="text" placeholder="Todo Title:" maxlength="36" />
+						<textarea class="details" placeholder="Details:"></textarea>
+						<div class="btn-close">✖</div>`;
 
 let projects = JSON.parse(localStorage.getItem("projects")) ?? [];
 let notes = JSON.parse(localStorage.getItem("notes")) ?? [];
@@ -116,6 +120,49 @@ function addMainSidebarListeners() {
 		});
 	});
 	addProjectsListeners();
+	document.querySelector("#notes").onclick = () => {
+		document.querySelector(".main-content").innerHTML = notesGrid;
+		addNotes(notes);
+		addNotesListeners();
+	};
+}
+
+function addNotes(_notes) {
+	let index = 0;
+	if (_notes.length === 1) index = notes.length-1;
+	for (const note of _notes) {
+		let noteCard = document.createElement("div");
+		noteCard.className = "note-card";
+		noteCard.innerHTML = noteCardContent;
+		noteCard.querySelector("input.title").value = note.title;
+		noteCard.querySelector("textarea.details").value = note.details;
+		noteCard.setAttribute("note-index", index.toString());
+		document.querySelector(".notes-grid").appendChild(noteCard);
+		index++;
+	}
+}
+
+function addNotesListeners() {
+	document.querySelectorAll(".note-card").forEach((card) => {
+		card.querySelector(".btn-close").onclick = (e) => {
+			let index = e.target.parentElement.getAttribute("note-index");
+			notes.splice(index, 1);
+			document.querySelector(".notes-grid").innerHTML = "";
+			addNotes(notes);
+			addNotesListeners();
+			localStorage.setItem("notes", JSON.stringify(notes));
+		};
+		card.querySelector("input.title").onchange = (e) => {
+			let index = e.target.parentElement.getAttribute("note-index");
+			notes[index].title = e.target.value;
+			localStorage.setItem("notes", JSON.stringify(notes));
+		};
+		card.querySelector("textarea.details").onchange = (e) => {
+			let index = e.target.parentElement.getAttribute("note-index");
+			notes[index].details = e.target.value;
+			localStorage.setItem("notes", JSON.stringify(notes));
+		};
+	});
 }
 
 function addNewFormListeners() {
@@ -153,18 +200,6 @@ function addEditFormListeners() {
 
 function addFormCloseListeners() {
 	document.querySelectorAll(".form-container .btn-close").forEach((btn) => (btn.onclick = closeForm));
-}
-
-function setCardAndTaskIndex(e) {
-	selectedCard = e.target.parentElement;
-	if (selectedCard.className !== "task-card") selectedCard = selectedCard.parentElement;
-	let taskName = selectedCard.querySelector(".task-name").textContent;
-	for (let i = 0; i < tasks.length; i++) {
-		if (tasks[i].title === taskName) {
-			selectedTaskIndex = i;
-			break;
-		}
-	}
 }
 
 function showDetails(e) {
@@ -229,6 +264,10 @@ function submitProject(title) {
 function submitNote(title) {
 	let details = document.querySelector(".new-form-container form textarea.details").value;
 	notes.push(new Note(title, details));
+	if (document.querySelector("#notes span").hasAttribute("active")) {
+		addNotes(notes.slice(-1));
+		addNotesListeners();
+	}
 	localStorage.setItem("notes", JSON.stringify(notes));
 }
 
