@@ -122,6 +122,11 @@ function addMainSidebarListeners() {
 		});
 	});
 	addProjectsListeners();
+	document.querySelector("#home").onclick = () => {
+		document.querySelector(".main-content").innerHTML = "";
+		addTasks(tasks);
+		addCardsListeners();
+	}
 	document.querySelector("#notes").onclick = () => {
 		document.querySelector(".main-content").innerHTML = notesGrid;
 		addNotes(notes);
