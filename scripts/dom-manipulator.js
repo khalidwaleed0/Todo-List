@@ -39,8 +39,6 @@ const noteCardContent = `<input class="title" type="text" placeholder="Todo Titl
 let projects = JSON.parse(localStorage.getItem("projects")) ?? [];
 let notes = JSON.parse(localStorage.getItem("notes")) ?? [];
 let tasks = JSON.parse(localStorage.getItem("tasks")) ?? [];
-let selectedCard;
-let selectedTaskIndex;
 
 class Note {
 	constructor(title, details) {
@@ -82,28 +80,32 @@ function addIconListeners() {
 function addCardsListeners() {
 	document.querySelectorAll("input.checkbox").forEach((item) => {
 		item.onchange = (e) => {
-			setCardAndTaskIndex(e);
-			tasks[selectedTaskIndex].isChecked = e.target.checked;
+			let index = e.target.parentElement.getAttribute("task-index");
+			tasks[index].isChecked = e.target.checked;
 			localStorage.setItem("tasks", JSON.stringify(tasks));
 		};
 	});
 	document.querySelectorAll("button.task-details").forEach((item) => {
 		item.onclick = (e) => {
 			document.querySelector(".details-form-container").toggleAttribute("active");
-			showDetails(e);
+			let taskIndex = e.target.parentElement.parentElement.getAttribute("task-index");
+			showDetails(taskIndex);
 		};
 	});
 	document.querySelectorAll("div.edit-icon-container").forEach((item) => {
 		item.onclick = (e) => {
 			document.querySelector(".edit-form-container").toggleAttribute("active");
-			showDetails(e);
+			let taskIndex = e.target.parentElement.parentElement.getAttribute("task-index");
+			showDetails(taskIndex);
 		};
 	});
 	document.querySelectorAll("div.remove-icon-container").forEach((item) => {
-		item.onclick = () => {
-			let taskName = item.parentElement.parentElement.querySelector(".task-name").textContent;
-			tasks = tasks.filter((task) => task.title !== taskName);
-			item.parentElement.parentElement.remove();
+		item.onclick = (e) => {
+			let taskIndex = e.target.parentElement.parentElement.getAttribute("task-index");
+			tasks.splice(taskIndex, 1);
+			document.querySelector(".main-content").innerHTML = "";
+			addTasks(tasks);
+			addCardsListeners();
 			localStorage.setItem("tasks", JSON.stringify(tasks));
 		};
 	});
@@ -129,7 +131,7 @@ function addMainSidebarListeners() {
 
 function addNotes(_notes) {
 	let index = 0;
-	if (_notes.length === 1) index = notes.length-1;
+	if (_notes.length === 1) index = notes.length - 1;
 	for (const note of _notes) {
 		let noteCard = document.createElement("div");
 		noteCard.className = "note-card";
@@ -184,14 +186,16 @@ function addNewFormSidebarListeners() {
 
 function addEditFormListeners() {
 	document.querySelector(".edit-form-container button").onclick = (e) => {
+		let index = e.target.getAttribute("task-index");
 		let title = document.querySelector(".edit-form-container input.title").value;
 		let details = document.querySelector(".edit-form-container textarea.details").value;
 		let date = document.querySelector(".edit-form-container input.date").value;
-		selectedCard.querySelector(".task-name").textContent = title;
-		selectedCard.querySelector(".task-date").textContent = date;
-		tasks[selectedTaskIndex].title = title;
-		tasks[selectedTaskIndex].details = details;
-		tasks[selectedTaskIndex].date = date;
+		let card = document.querySelector(`.task-card[task-index="${index}"]`);
+		card.querySelector(".task-name").textContent = title;
+		card.querySelector(".task-date").textContent = date;
+		tasks[index].title = title;
+		tasks[index].details = details;
+		tasks[index].date = date;
 		localStorage.setItem("tasks", JSON.stringify(tasks));
 		document.querySelector(".edit-form-container form").reset();
 		closeForm(e);
@@ -202,11 +206,11 @@ function addFormCloseListeners() {
 	document.querySelectorAll(".form-container .btn-close").forEach((btn) => (btn.onclick = closeForm));
 }
 
-function showDetails(e) {
-	setCardAndTaskIndex(e);
-	document.querySelector(".form-container[active] input.title").value = tasks[selectedTaskIndex].title;
-	document.querySelector(".form-container[active] textarea.details").value = tasks[selectedTaskIndex].details;
-	document.querySelector(".form-container[active] input.date").value = tasks[selectedTaskIndex].date;
+function showDetails(taskIndex) {
+	document.querySelector(".edit-form-container button").setAttribute("task-index", taskIndex.toString());
+	document.querySelector(".form-container[active] input.title").value = tasks[taskIndex].title;
+	document.querySelector(".form-container[active] textarea.details").value = tasks[taskIndex].details;
+	document.querySelector(".form-container[active] input.date").value = tasks[taskIndex].date;
 }
 
 function addProjectsListeners() {
@@ -278,7 +282,7 @@ function submitTask(title) {
 	tasks.push(new Task(title, details, date, project));
 	localStorage.setItem("tasks", JSON.stringify(tasks));
 	addTasks(tasks.slice(-1));
-	addIconListeners();
+	addCardsListeners();
 }
 
 export function addProjects(projects) {
@@ -290,14 +294,18 @@ export function addProjects(projects) {
 	}
 }
 
-export function addTasks(tasks) {
-	for (const task of tasks) {
+export function addTasks(_tasks) {
+	let index = 0;
+	if (_tasks.length === 1) index = tasks.length - 1;
+	for (const task of _tasks) {
 		let taskCard = document.createElement("div");
 		taskCard.innerHTML = taskCardContent;
 		taskCard.className = "task-card";
 		taskCard.querySelector(".task-name").textContent = task.title;
 		taskCard.querySelector(".checkbox").checked = task.isChecked;
 		taskCard.querySelector(".task-date").textContent = task.date;
+		taskCard.setAttribute("task-index", index.toString());
 		document.querySelector(".main-content").appendChild(taskCard);
+		index++;
 	}
 }
