@@ -89,6 +89,7 @@ svg.menu-icon {
 }
 
 .side-bar[active] #btn-add {
+	margin-bottom: 60px;
 	align-self: center;
 }
 
