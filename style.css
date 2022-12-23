@@ -389,7 +389,7 @@ textarea.details {
 @media (max-width: 515px) {
 	.form-container form {
 		width: 90%;
-		height: 60vh;
+		height: 50vh;
 	}
 	.side-bar[active] {
 		width: 70vw;
