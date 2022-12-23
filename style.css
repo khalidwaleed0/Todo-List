@@ -385,9 +385,10 @@ textarea.details {
 }
 /* Scrollbar style */
 
-@media (max-width: 500px) {
+@media (max-width: 515px) {
 	.form-container form {
 		width: 90%;
+		height: 70%;
 	}
 	.side-bar[active] {
 		width: 70vw;
@@ -419,6 +420,7 @@ textarea.details {
 
 @media (orientation: portrait) {
 	.grid {
+		border-radius: 0;
 		height: 100vh;
 	}
 }
