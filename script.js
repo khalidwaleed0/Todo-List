@@ -1,4 +1,4 @@
-import { addListeners, addProjects, addTasks } from "/scripts/dom-manipulator.js";
+import { addListeners, addProjects, addTasks } from "./scripts/dom-manipulator.js";
 
 if (storageAvailable("localStorage")) {
 	let projects = JSON.parse(localStorage.getItem("projects")) ?? [];
