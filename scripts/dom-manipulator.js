@@ -249,6 +249,12 @@ function closeForm(e) {
 function showTodoForm() {
 	document.querySelector("form .content").innerHTML = todoFormContent;
 	document.querySelector(".new-form-container form button").onclick = submitForm;
+	document.querySelector("form input.date").value = getCurrentDate();
+}
+
+function getCurrentDate() {
+	let date = new Date();
+	return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 }
 
 function showProjectForm() {
