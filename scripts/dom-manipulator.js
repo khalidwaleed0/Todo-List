@@ -299,8 +299,10 @@ function submitTask(title) {
 	let project = document.querySelector("#projects-container span[active]")?.textContent ?? null;
 	tasks.push(new Task(title, details, date, project));
 	localStorage.setItem("tasks", JSON.stringify(tasks));
-	addTasks(tasks.slice(-1));
-	addCardsListeners();
+	if (document.querySelector("#home span").hasAttribute("active")) {
+		addTasks(tasks.slice(-1));
+		addCardsListeners();
+	}
 }
 
 export function addProjects(projects) {
