@@ -1,6 +1,7 @@
 import { submitForm } from "./form-logic.js";
 import { notes, tasks } from "./form-logic.js";
 
+document.querySelector("#home span").setAttribute("active", "");
 updateSidebarCounters();
 
 export class Note {
