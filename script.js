@@ -1,37 +1,23 @@
-import { addListeners, addProjects, addTasks } from "./scripts/dom-manipulator.js";
+import { addProjects, addTasks } from "./scripts/dom-manipulator.js";
+import { tasks, projects } from "./scripts/form-logic.js";
+import { markup } from "./scripts/markup.js";
+import {
+	addCardsListeners,
+	addMainSidebarListeners,
+	addNewFormListeners,
+	addNewFormSidebarListeners,
+	addEditFormListeners,
+	addFormCloseListeners,
+	addIconListeners,
+} from "./scripts/dom-listeners.js";
 
-if (storageAvailable("localStorage")) {
-	let projects = JSON.parse(localStorage.getItem("projects")) ?? [];
-	let notes = JSON.parse(localStorage.getItem("notes")) ?? [];
-	let tasks = JSON.parse(localStorage.getItem("tasks")) ?? [];
-	addProjects(projects);
-	addTasks(tasks);
-	addListeners();
-}
+addProjects(projects);
+addTasks(tasks, markup);
 
-function storageAvailable(type) {
-	let storage;
-	try {
-		storage = window[type];
-		const x = "__storage_test__";
-		storage.setItem(x, x);
-		storage.removeItem(x);
-		return true;
-	} catch (e) {
-		return (
-			e instanceof DOMException &&
-			// everything except Firefox
-			(e.code === 22 ||
-				// Firefox
-				e.code === 1014 ||
-				// test name field too, because code might not be present
-				// everything except Firefox
-				e.name === "QuotaExceededError" ||
-				// Firefox
-				e.name === "NS_ERROR_DOM_QUOTA_REACHED") &&
-			// acknowledge QuotaExceededError only if there's something already stored
-			storage &&
-			storage.length !== 0
-		);
-	}
-}
+addIconListeners();
+addCardsListeners();
+addMainSidebarListeners(markup);
+addNewFormListeners();
+addNewFormSidebarListeners(markup);
+addEditFormListeners();
+addFormCloseListeners();
