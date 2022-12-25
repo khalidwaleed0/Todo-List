@@ -29,7 +29,10 @@ export function submitTask(title) {
 	let project = document.querySelector("#projects-container span[active]")?.textContent ?? null;
 	tasks.push(new Task(title, details, date, project));
 	localStorage.setItem("tasks", JSON.stringify(tasks));
-	if (document.querySelector("#home span").hasAttribute("active")) {
+	if (
+		document.querySelector("#home span").hasAttribute("active") ||
+		document.querySelector("#projects-container span[active]")?.hasAttribute("active")
+	) {
 		addTasks(tasks.slice(-1), markup);
 		addCardsListeners();
 	}
