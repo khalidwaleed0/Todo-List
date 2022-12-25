@@ -315,7 +315,7 @@ export function addProjects(projects) {
 	for (const project of projects) {
 		document.getElementById("projects-container").innerHTML += `<div class="project">
 																	<span>${project}</span>
-																	<span class="counter">4</span>
+																	<span class="counter">0</span>
 																	</div>`;
 	}
 }
