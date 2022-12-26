@@ -21,7 +21,6 @@ export function getWeekTasks() {
 	for (const task of tasks) {
 		let distanceInMillis = new Date(task.date) - todayDate;
 		let distanceInDays = Math.ceil(distanceInMillis / (1000 * 60 * 60 * 24));
-		console.log(distanceInDays);
 		if (distanceInDays <= 7 && distanceInDays >= 0) weekTasks.push(task);
 	}
 	return weekTasks;
