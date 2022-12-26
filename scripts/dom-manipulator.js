@@ -2,7 +2,6 @@ import { submitForm } from "./form-logic.js";
 import { notes, tasks, getCurrentDate, getTodayTasks, getWeekTasks } from "./form-logic.js";
 
 document.querySelector("#home span").setAttribute("active", "");
-updateSidebarCounters();
 
 export class Note {
 	constructor(title, details) {
@@ -24,7 +23,7 @@ export class Task {
 export function addProjects(projects) {
 	for (const project of projects) {
 		document.getElementById("projects-container").innerHTML += `<div class="project">
-																	<span>${project}</span>
+																	<span class="title">${project}</span>
 																	<span class="counter">0</span>
 																	</div>`;
 	}
@@ -89,4 +88,10 @@ export function updateSidebarCounters() {
 	document.querySelector("#today .counter").textContent = getTodayTasks().length;
 	document.querySelector("#week .counter").textContent = getWeekTasks().length;
 	document.querySelector("#notes .counter").textContent = notes.length;
+	document.querySelectorAll("#projects-container .project").forEach((e) => {
+		let title = e.querySelector(".title").textContent;
+		let counter = e.querySelector(".counter");
+		let projectLength = tasks.filter((task) => task.project === title).length;
+		counter.textContent = projectLength;
+	});
 }

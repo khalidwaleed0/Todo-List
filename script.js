@@ -1,4 +1,4 @@
-import { addProjects, addTasks } from "./scripts/dom-manipulator.js";
+import { addProjects, addTasks, updateSidebarCounters } from "./scripts/dom-manipulator.js";
 import { tasks, projects } from "./scripts/form-logic.js";
 import { markup } from "./scripts/markup.js";
 import {
@@ -13,6 +13,7 @@ import {
 
 addProjects(projects);
 addTasks(tasks, markup);
+updateSidebarCounters();
 
 addIconListeners();
 addCardsListeners();
