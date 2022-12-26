@@ -8,7 +8,7 @@ import {
 	updateSidebarCounters,
 } from "./dom-manipulator.js";
 import { markup } from "./markup.js";
-import { tasks, notes, closeForm } from "./form-logic.js";
+import { tasks, notes, getTodayTasks, getWeekTasks, closeForm } from "./form-logic.js";
 
 export function addIconListeners() {
 	document.querySelector("div.menu-icon-container").onclick = () => {
@@ -73,6 +73,18 @@ export function addMainSidebarListeners({ notesGrid }) {
 	document.querySelector("#home").onclick = () => {
 		document.querySelector(".main-content").innerHTML = "";
 		addTasks(tasks, markup);
+		addCardsListeners();
+	};
+	document.querySelector("#today").onclick = () => {
+		document.querySelector(".main-content").innerHTML = "";
+		let todayTasks = getTodayTasks();
+		addTasks(todayTasks, markup);
+		addCardsListeners();
+	};
+	document.querySelector("#week").onclick = () => {
+		document.querySelector(".main-content").innerHTML = "";
+		let weekTasks = getWeekTasks();
+		addTasks(weekTasks, markup);
 		addCardsListeners();
 	};
 	document.querySelector("#notes").onclick = () => {

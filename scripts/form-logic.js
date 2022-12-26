@@ -6,6 +6,32 @@ export let notes = JSON.parse(localStorage.getItem("notes")) ?? [];
 export let tasks = JSON.parse(localStorage.getItem("tasks")) ?? [];
 export let projects = JSON.parse(localStorage.getItem("projects")) ?? [];
 
+export function getTodayTasks() {
+	let todayTasks = [];
+	let todayDate = getCurrentDate();
+	for (const task of tasks) {
+		if (task.date === todayDate) todayTasks.push(task);
+	}
+	return todayTasks;
+}
+
+export function getWeekTasks() {
+	let weekTasks = [];
+	let todayDate = new Date(getCurrentDate());
+	for (const task of tasks) {
+		let distanceInMillis = new Date(task.date) - todayDate;
+		let distanceInDays = Math.ceil(distanceInMillis / (1000 * 60 * 60 * 24));
+		console.log(distanceInDays);
+		if (distanceInDays <= 7 && distanceInDays >= 0) weekTasks.push(task);
+	}
+	return weekTasks;
+}
+
+export function getCurrentDate() {
+	let date = new Date();
+	return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+}
+
 export function submitProject(title) {
 	projects.push(title);
 	localStorage.setItem("projects", JSON.stringify(projects));

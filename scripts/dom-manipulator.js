@@ -1,5 +1,5 @@
 import { submitForm } from "./form-logic.js";
-import { notes, tasks } from "./form-logic.js";
+import { notes, tasks, getCurrentDate, getTodayTasks, getWeekTasks } from "./form-logic.js";
 
 document.querySelector("#home span").setAttribute("active", "");
 updateSidebarCounters();
@@ -86,10 +86,7 @@ export function showTodoForm({ todoFormContent }) {
 
 export function updateSidebarCounters() {
 	document.querySelector("#home .counter").textContent = tasks.length;
+	document.querySelector("#today .counter").textContent = getTodayTasks().length;
+	document.querySelector("#week .counter").textContent = getWeekTasks().length;
 	document.querySelector("#notes .counter").textContent = notes.length;
-}
-
-function getCurrentDate() {
-	let date = new Date();
-	return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 }
